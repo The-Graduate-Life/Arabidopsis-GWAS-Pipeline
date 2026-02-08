@@ -60,7 +60,7 @@ The pipeline is divided into **six main stages**, each implemented as a **standa
 3. **Quality Control (QC)**  
    - Minor allele frequency filtering (MAF > 0.05)  
    - Individual and SNP missingness filtering  
-   - Hardy–Weinberg equilibrium filter (p > 1e-6)  
+   - Hardy–Weinberg equilibrium filter (p > $1 \times 10^{-6}$)  
 
 4. **PCA & Kinship Estimation**  
    - Compute principal components to correct for population structure  
