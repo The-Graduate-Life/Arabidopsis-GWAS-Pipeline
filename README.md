@@ -1,4 +1,4 @@
-# GWAS Analysis Pipeline for *Arabidopsis thaliana* — Class Project Proposal
+# GWAS Analysis Pipeline for *Arabidopsis thaliana*
 
 **Author:** Fritzner Pierre  
 **Course:** Scripting for Biologists (BIOL-7180)  
@@ -111,7 +111,7 @@ By completing this project, I will learn:
 
 
 
-## 8. Timeline
+## 8. Step-by-Step Flow
 
 | Steps | Tasks |
 |------|------|
