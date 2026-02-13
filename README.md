@@ -1,39 +1,38 @@
-# Arabidopsis GWAS Pipeline — Class Project Proposal
+# GWAS Analysis Pipeline for *Arabidopsis thaliana* — Class Project Proposal
 
 **Student:** Fritzner Pierre  
 **Course:** Scripting for Biologists (BIOL-7180)  
-**Date:** February 2026  
+**Semester:** Spring 2026  
 
 ---
 
 ## 1. Project Title
 
-**Shell-Scripting–Driven GWAS Pipeline for Arabidopsis Flowering Time Using Public Data**
+**GWAS Pipeline for Arabidopsis Flowering Time Using Public Data**
 
 ---
 
 ## 2. Project Overview
 
-Genome-wide association studies (GWAS) are a fundamental tool in plant genomics, allowing researchers to link genetic variation to phenotypic traits. In this project, I will develop a **fully shell-script–based pipeline** for conducting GWAS on **Arabidopsis thaliana flowering time**, leveraging publicly available data from the **1001 Genomes Project**.  
+Genome-wide association studies (GWAS) are a fundamental tool in plant genomics that allows researchers to link genetic variation to phenotypic traits. In this project, I will develop a **fully shell-script–based pipeline** for conducting GWAS on ***Arabidopsis thaliana* flowering time**, leveraging publicly available data from the **[1001 Genomes Project](https://1001genomes.org/)**.  
 
-The pipeline will integrate **VCF processing, quality control, PCA, kinship estimation, GWAS modeling, and result visualization**, while emphasizing **shell scripting** as the main method for automation. R scripts will be called via shell scripts for statistical computation and plotting, allowing students to learn both shell scripting and workflow management in genomics.
+The pipeline will combine **VCF processing, quality control, PCA, GWAS modeling, and result visualization**, with the emphasis on **shell scripting** as the main method for automation. Some R scripts might be called via shell scripts for statistical computation and plotting if needed. This project focuses on both shell scripting and workflow management in genomics.
 
 ---
 
 ## 3. Objectives
 
-The goals of this project are to:
+Throughout this project, I aim to:
 
-1. Develop a **reproducible shell-script–driven workflow** for GWAS.  
+1. Develop a **reproducible shell-script–driven workflow** for GWAS analysis.  
 2. Process publicly available Arabidopsis SNP and phenotype data.  
 3. Perform standard GWAS steps:
    - SNP filtering and quality control  
    - Population structure analysis (PCA)  
-   - Kinship estimation  
    - GWAS using mixed linear models (MLM / FarmCPU via GAPIT)  
    - Visualization (Manhattan and QQ plots)  
-4. Produce a **self-contained tutorial** that allows other students to run the pipeline without instructor intervention.  
-5. Emphasize **automation, modularity, and reproducibility**, demonstrating how shell scripting can manage complex bioinformatics workflows.
+4. Produce a **complete tutorial** that allows other researchers to run the pipeline without instructor intervention.  
+5. Emphasize **automation, modularity, and reproducibility** to demonstrate how shell scripting can manage complex bioinformatics workflows.
 
 ---
 
@@ -48,14 +47,14 @@ The goals of this project are to:
 
 ## 5. Methodology
 
-The pipeline is divided into **six main stages**, each implemented as a **standalone shell script**:
+The pipeline is divided into **six main stages**, each will be implemented as a **standalone shell script**:
 
 1. **VCF Filtering**  
-   - Keep biallelic SNPs  
-   - Remove SNPs with high missingness (>10%)  
+   - To keep biallelic SNPs  
+   - To remove SNPs with high missingness (>10%)  
 
 2. **VCF to PLINK Conversion**  
-   - Convert VCF to PLINK binary files (.bed, .bim, .fam)  
+   - To convert VCF to PLINK binary files (.bed, .bim, .fam)  
 
 3. **Quality Control (QC)**  
    - Minor allele frequency filtering (MAF > 0.05)  
@@ -63,8 +62,8 @@ The pipeline is divided into **six main stages**, each implemented as a **standa
    - Hardy–Weinberg equilibrium filter (p > $1 \times 10^{-6}$)  
 
 4. **PCA & Kinship Estimation**  
-   - Compute principal components to correct for population structure  
-   - Compute kinship matrix to account for relatedness  
+   - To compute principal components to correct for population structure  
+   - To compute kinship matrix to account for relatedness  
 
 5. **GWAS Analysis**  
    - Run GWAS using FarmCPU / MLM models via **GAPIT** in R  
@@ -73,17 +72,17 @@ The pipeline is divided into **six main stages**, each implemented as a **standa
 6. **Visualization**  
    - Generate Manhattan and QQ plots for interpretation of results  
 
-All steps are automated in `run_pipeline.sh` and designed for **reproducibility and modularity**.
+All steps will be automated using shell script `run_pipeline.sh` as master script and designed for **reproducibility and modularity**.
 
 ---
 
-## 6. Software and Tools
+## 6. Software and Tools that might be used in this project
 
 - **Shell scripting:** Primary workflow automation  
 - **PLINK:** SNP QC and conversion  
 - **bcftools:** VCF filtering  
 - **R & GAPIT3:** PCA, kinship, GWAS modeling, and plotting  
-- **qqman (R):** Manhattan and QQ plots  
+- **qqman package (R):** Manhattan and QQ plots  
 
 ---
 
@@ -93,42 +92,37 @@ All steps are automated in `run_pipeline.sh` and designed for **reproducibility 
    - All shell and R scripts  
    - Sample data placeholders  
    - Results directories for QC, PCA/kinship, GWAS, and plots  
-   - `run_pipeline.sh` master script  
+   - The master script `run_pipeline.sh`  
 
 2. **Tutorial documentation** (`tutorial.md`)  
    - Step-by-step instructions  
    - Explanation of each script and workflow stage  
 
-3. **Final presentation / workshop**  
-   - Demonstration of pipeline usage  
-   - Interpretation of results  
-
 ---
 
 ## 8. Learning Outcomes
 
-By completing this project, students (including myself) will learn:
+By completing this project, I will learn:
 
 - Practical shell scripting for bioinformatics workflows  
 - How to integrate R scripts into automated pipelines  
-- Quality control and preprocessing of real genomic data  
-- Population structure correction and kinship in GWAS  
+- Quality control and preprocessing of real genomic data   
 - Interpretation of GWAS results (Manhattan & QQ plots)  
-- Reproducibility and workflow management in bioinformatics  
+- Reproducibility and workflow management in scripting  
 
 ---
 
 ## 9. Timeline
 
-| Week | Task |
+| Tasks | Task |
 |------|------|
 | 1    | Gather data and subset for class use |
 | 2    | Develop shell scripts for VCF filtering & PLINK conversion |
-| 3    | Implement QC & PCA/Kinship scripts |
+| 3    | Implement QC & PCA scripts |
 | 4    | Implement GWAS & visualization scripts |
 | 5    | Test full pipeline, debug, and optimize |
 | 6    | Write tutorial and prepare presentation |
-| 7    | Submit GitHub repository & present in class |
+| 7    | Submit GitHub repository |
 
 ---
 
