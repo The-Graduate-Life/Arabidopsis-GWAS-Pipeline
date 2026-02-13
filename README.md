@@ -1,5 +1,3 @@
-# GWAS Analysis Pipeline for *Arabidopsis thaliana*
-
 **Author:** Fritzner Pierre  
 **Course:** Scripting for Biologists (BIOL-7180)  
 **Semester:** Spring 2026    
@@ -7,7 +5,7 @@
 
 ---
 
-## Project Title: **GWAS Pipeline for Arabidopsis Flowering Time Using Public Data**
+## Project: **GWAS Analysis Pipeline for *Arabidopsis thaliana* Flowering Time Using Public Data**
 
 ---
 
