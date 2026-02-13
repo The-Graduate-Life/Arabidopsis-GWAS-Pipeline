@@ -1,26 +1,25 @@
 # GWAS Analysis Pipeline for *Arabidopsis thaliana* — Class Project Proposal
 
-**Student:** Fritzner Pierre  
+**Author:** Fritzner Pierre  
 **Course:** Scripting for Biologists (BIOL-7180)  
-**Semester:** Spring 2026  
+**Semester:** Spring 2026    
+**Institution/Affiliation**: Auburn University
 
 ---
 
-## 1. Project Title
-
-**GWAS Pipeline for Arabidopsis Flowering Time Using Public Data**
+## Project Title: **GWAS Pipeline for Arabidopsis Flowering Time Using Public Data**
 
 ---
 
-## 2. Project Overview
+## 1. Project Overview
 
 Genome-wide association studies (GWAS) are a fundamental tool in plant genomics that allows researchers to link genetic variation to phenotypic traits. In this project, I will develop a **fully shell-script–based pipeline** for conducting GWAS on ***Arabidopsis thaliana* flowering time**, leveraging publicly available data from the **[1001 Genomes Project](https://1001genomes.org/)**.  
 
 The pipeline will combine **VCF processing, quality control, PCA, GWAS modeling, and result visualization**, with the emphasis on **shell scripting** as the main method for automation. Some R scripts might be called via shell scripts for statistical computation and plotting if needed. This project focuses on both shell scripting and workflow management in genomics.
 
----
 
-## 3. Objectives
+
+## 2. Objectives
 
 Throughout this project, I aim to:
 
@@ -34,18 +33,18 @@ Throughout this project, I aim to:
 4. Produce a **complete tutorial** that allows other researchers to run the pipeline without instructor intervention.  
 5. Emphasize **automation, modularity, and reproducibility** to demonstrate how shell scripting can manage complex bioinformatics workflows.
 
----
 
-## 4. Data Source
+
+## 3. Data Source
 
 - **SNP Data:** 1001 Genomes Project VCF files ([link](https://1001genomes.org/data/GMI-MPI/releases/v3.1/))  
 - **Phenotype Data:** Flowering time for Arabidopsis accessions ([link](https://arapheno.1001genomes.org/study/12/?utm_source=chatgpt.com))  
 
 > The dataset will be reduced to a manageable subset (~100–200 accessions) for class use.
 
----
 
-## 5. Methodology
+
+## 4. Methodology
 
 The pipeline is divided into **six main stages**, each will be implemented as a **standalone shell script**:
 
@@ -74,9 +73,9 @@ The pipeline is divided into **six main stages**, each will be implemented as a 
 
 All steps will be automated using shell script `run_pipeline.sh` as master script and designed for **reproducibility and modularity**.
 
----
 
-## 6. Software and Tools that might be used in this project
+
+## 5. Software and Tools that might be used in this project
 
 - **Shell scripting:** Primary workflow automation  
 - **PLINK:** SNP QC and conversion  
@@ -84,9 +83,9 @@ All steps will be automated using shell script `run_pipeline.sh` as master scrip
 - **R & GAPIT3:** PCA, kinship, GWAS modeling, and plotting  
 - **qqman package (R):** Manhattan and QQ plots  
 
----
 
-## 7. Expected Deliverables
+
+## 6. Expected Deliverables
 
 1. **GitHub Repository** containing:
    - All shell and R scripts  
@@ -98,9 +97,9 @@ All steps will be automated using shell script `run_pipeline.sh` as master scrip
    - Step-by-step instructions  
    - Explanation of each script and workflow stage  
 
----
 
-## 8. Learning Outcomes
+
+## 7. Learning Outcomes
 
 By completing this project, I will learn:
 
@@ -110,11 +109,11 @@ By completing this project, I will learn:
 - Interpretation of GWAS results (Manhattan & QQ plots)  
 - Reproducibility and workflow management in scripting  
 
----
 
-## 9. Timeline
 
-| Tasks | Task |
+## 8. Timeline
+
+| Steps | Tasks |
 |------|------|
 | 1    | Gather data and subset for class use |
 | 2    | Develop shell scripts for VCF filtering & PLINK conversion |
@@ -124,9 +123,9 @@ By completing this project, I will learn:
 | 6    | Write tutorial and prepare presentation |
 | 7    | Submit GitHub repository |
 
----
 
-## 10. References
+
+## 9. References
 
 - The 1001 Genomes Consortium. 1001 Genomes Project Data. [https://1001genomes.org/](https://1001genomes.org/)  
 - GAPIT3: Genome Association and Prediction Integrated Tool. [https://zzlab.net/GAPIT/](https://zzlab.net/GAPIT/)  
