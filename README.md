@@ -131,5 +131,3 @@ By completing this project, I will learn:
 - qqman: R package for Manhattan and QQ plots. [https://cran.r-project.org/web/packages/qqman/](https://cran.r-project.org/web/packages/qqman/)
 
 ---
-
-**This project is designed to emphasize scripting skills while providing a complete end-to-end workflow for a real genomic analysis.**
