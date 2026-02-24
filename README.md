@@ -131,3 +131,22 @@ By completing this project, I will learn:
 - qqman: R package for Manhattan and QQ plots. [https://cran.r-project.org/web/packages/qqman/](https://cran.r-project.org/web/packages/qqman/)
 
 ---
+
+## Feedback
+
+This project idea sounds good.
+I like the goal of making your code modular and extensible; try to make each
+component (e.g., function or script) do one thing and do it well.
+You are welcome to use Bash and R for your project.
+[This Bash style guide](https://google.github.io/styleguide/shellguide.html)
+will be helpful for translating the best practices we learn in class with
+Python to Bash.
+For example,
+[the section about comments](https://google.github.io/styleguide/shellguide.html#comments)
+shows how to follow best practices for documenting Bash code (i.e., the
+equivalent of docstrings in Python).
+Similarly,
+[roxygen2](https://roxygen2.r-lib.org/)
+provides a way to follow documentation best practices for R code.
+All the best practices we learn in class using Python will be applicable to
+your Bash and R coding.
