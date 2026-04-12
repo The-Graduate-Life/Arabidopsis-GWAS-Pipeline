@@ -81,24 +81,33 @@ mkdir -p "$SUBSET_DIR"
 # Environment setup
 # Creates the conda environment with all system-level dependencies.
 # R packages that are not available on conda (gdsfmt, SNPRelate, GAPIT3, qqman)
-# are installed via Bioconductor, GitHub, and CRAN respectively.
+# are installed via Bioconductor, GitHub, and CRAN, respectively.
 # The environment is only created once — conda skips creation if it
 # already exists.
 # -----------------------------------------------------------------------------
+
 conda create -n gwas_env -c conda-forge -c bioconda \
-    pandas numpy plink \
+    pandas numpy \
+    plink plink2 \
     r-base r-devtools r-biocmanager \
-    r-lme4 r-nloptr r-fs \
+    r-lme4 r-nloptr r-fs r-matrix r-rcpp \
+    compilers make \
     -y
 
 source "$(conda info --base)/etc/profile.d/conda.sh"
 conda activate gwas_env
 
 echo "Installing R packages..."
-Rscript -e "BiocManager::install(c('gdsfmt', 'SNPRelate'), ask=FALSE, update=TRUE, force=TRUE)"
-Rscript -e "devtools::install_github('jiabowang/GAPIT3', force=TRUE)"
-Rscript -e "install.packages('qqman', repos='https://cloud.r-project.org')"
-echo "✓ R packages installed"
+
+Rscript -e "if(!requireNamespace('BiocManager', quietly=TRUE)) install.packages('BiocManager', repos='https://cloud.r-project.org')"
+
+Rscript -e "BiocManager::install(c('gdsfmt','SNPRelate'), ask=FALSE, update=TRUE)"
+
+Rscript -e "install.packages(c('pak','qqman','data.table','ggplot2','scatterplot3d','bigmemory','biganalytics','ape'), repos='https://cloud.r-project.org')"
+
+Rscript -e "pak::pak('jiabowang/GAPIT3')"
+
+echo '✓ GWAS environment ready'
 
 # -----------------------------------------------------------------------------
 # Step 1: Select accessions
