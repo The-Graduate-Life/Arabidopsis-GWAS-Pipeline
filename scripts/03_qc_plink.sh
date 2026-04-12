@@ -59,3 +59,38 @@ readonly OUT=$2
 [[ -f "${BFILE}.bed" ]] || { echo "ERROR: PLINK .bed not found: ${BFILE}.bed"; exit 1; }
 
 mkdir -p "$(dirname "$OUT")"
+
+# -----------------------------------------------------------------------------
+# Environment
+# -----------------------------------------------------------------------------
+source "$(conda info --base)/etc/profile.d/conda.sh"
+conda activate gwas_env
+
+# -----------------------------------------------------------------------------
+# QC filters
+# -----------------------------------------------------------------------------
+echo "Running QC..."
+echo "  Input  : $BFILE"
+echo "  Output : $OUT"
+echo "  Filters: MAF >= 0.05 | geno < 0.1 | mind < 0.1 | HWE disabled"
+
+plink \
+    --bfile "$BFILE" \
+    --maf 0.05 \
+    --geno 0.1 \
+    --mind 0.1 \
+    --hwe 0 \
+    --allow-extra-chr \
+    --make-bed \
+    --out "$OUT"
+
+# -----------------------------------------------------------------------------
+# Summary
+# -----------------------------------------------------------------------------
+N_SNPS=$(wc -l < "${OUT}.bim")
+N_SAMPLES=$(wc -l < "${OUT}.fam")
+echo ""
+echo "✓ QC complete → $N_SAMPLES samples, $N_SNPS SNPs: $OUT"
+echo ""
+echo "Next step:"
+echo "  bash scripts/04_pca_kinship.sh $OUT results/pca"
