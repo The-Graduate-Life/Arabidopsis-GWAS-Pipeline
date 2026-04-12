@@ -47,3 +47,41 @@ usage() {
 # -----------------------------------------------------------------------------
 readonly VCF=$1
 readonly OUT=$2
+
+# -----------------------------------------------------------------------------
+# Validation
+# -----------------------------------------------------------------------------
+[[ -f "$VCF" ]] || { echo "ERROR: VCF not found: $VCF"; exit 1; }
+
+mkdir -p "$(dirname "$OUT")"
+
+# -----------------------------------------------------------------------------
+# Environment
+# -----------------------------------------------------------------------------
+source "$(conda info --base)/etc/profile.d/conda.sh"
+conda activate gwas_env
+
+# -----------------------------------------------------------------------------
+# Convert
+# -----------------------------------------------------------------------------
+echo "Converting VCF to PLINK..."
+echo "  Input  : $VCF"
+echo "  Output : ${OUT}.bed / .bim / .fam"
+
+plink \
+    --vcf "$VCF" \
+    --make-bed \
+    --allow-extra-chr \
+    --set-missing-var-ids @:# \
+    --out "$OUT"
+
+# -----------------------------------------------------------------------------
+# Summary
+# -----------------------------------------------------------------------------
+N_SNPS=$(wc -l < "${OUT}.bim")
+N_SAMPLES=$(wc -l < "${OUT}.fam")
+echo ""
+echo "✓ PLINK files generated → $N_SAMPLES samples, $N_SNPS SNPs"
+echo ""
+echo "Next step:"
+echo "  bash scripts/03_qc_plink.sh $OUT data/plink/qc"
