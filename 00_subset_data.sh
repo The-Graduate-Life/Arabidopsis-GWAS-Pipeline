@@ -80,7 +80,7 @@ mkdir -p "$SUBSET_DIR"
 # -----------------------------------------------------------------------------
 # Environment setup
 # Creates the conda environment with all system-level dependencies.
-# R packages that are not available on conda (SNPRelate, GAPIT3, qqman)
+# R packages that are not available on conda (gdsfmt, SNPRelate, GAPIT3, qqman)
 # are installed via Bioconductor, GitHub, and CRAN respectively.
 # The environment is only created once — conda skips creation if it
 # already exists.
