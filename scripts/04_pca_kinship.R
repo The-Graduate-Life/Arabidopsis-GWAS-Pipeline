@@ -59,3 +59,17 @@ pcs <- data.frame(
 )
 write.csv(pcs, file.path(outdir, "PCA.csv"), row.names = FALSE)
 cat("  →", nrow(pcs), "samples written to PCA.csv\n")
+
+# -----------------------------------------------------------------------------
+# Kinship (IBS matrix)
+# -----------------------------------------------------------------------------
+cat("Computing kinship (IBS)...\n")
+kin <- snpgdsIBS(geno, verbose = FALSE)
+write.csv(kin$ibs, file.path(outdir, "Kinship.csv"), row.names = TRUE)
+cat("  → Kinship matrix written to Kinship.csv\n")
+
+# -----------------------------------------------------------------------------
+# Cleanup
+# -----------------------------------------------------------------------------
+snpgdsClose(geno)
+cat("✓ PCA & kinship complete\n")
