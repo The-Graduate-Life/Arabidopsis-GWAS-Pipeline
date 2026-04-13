@@ -41,7 +41,6 @@ A **genome-wide association study (GWAS)** is a genetic technique to test hundre
 
 > *Note on Hardy-Wenberg Equilibrium (HWE) filtering: *A. thaliana* reproduces almost exclusively by self-fertilization, meaning the vast majority of loci deviate strongly from HWE by design. To handle that, the quality control (QC) helps to disable HWE filtering for this reason in the script.*
 
----
 
 ## 2\. Pipeline Overview
 
@@ -75,7 +74,6 @@ Raw VCF + Phenotype CSV
 
 > *Each numbered step is a standalone shell script. A master script (`run_pipeline.sh`) chains steps 01-06 together. Script `00_subset_data.sh` must run first, following by `00b_subset_vcf.sh` before runing the master script.*
 
----
 
 ## 3\. Repository Structure
 
@@ -121,7 +119,8 @@ Arabidopsis-GWAS-Pipeline/
 ├── FOLLOWME.md
 └── PROJECT_DETAILS.md
 ```
----
+
+
 ## 4\. Prerequisites
 
 For a smooth computational journey during this project, the following tools and packages must be installed prior running `01_filter_vcf.sh`. Fortunately, the script  `00_subset_data.sh` will smoothly install all the required tools, packages, and dependencies.
@@ -177,7 +176,7 @@ tabix --version | head -1      # tabix (htslib) 1.x
 plink --version                # PLINK v1.9x
 Rscript --version              # R scripting front-end version 4.x.x
 ```
----
+
 
 ## 5\. Data
 
@@ -224,7 +223,7 @@ accession_id,replicate_id,FT16,FT10
 * `FT16`: days to flower at 16 °C
 * `FT10`: days to flower at 10 °C (vernalization treatment)
 
----
+
 
 ## 6\. How to Cite
 
@@ -234,7 +233,7 @@ If you use this pipeline in your work, please cite:
 
 Please also cite the underlying tools (see [References](#8-references)).
 
----
+
 
 ## 7\. AI Disclosure
 
