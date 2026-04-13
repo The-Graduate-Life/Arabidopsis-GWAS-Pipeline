@@ -361,3 +361,59 @@ Running QC...
 ✓ QC complete → <N_samples> samples, <N_snps> SNPs: data/plink/qc
 ```
 ---
+
+### Step 4 — PCA & Kinship
+
+This step uses the **SNPRelate** R package to compute:
+
+* **PCA scores** — used as fixed-effect covariates in the GWAS model to correct for population stratification
+* **Kinship matrix** — used as a random-effect covariance structure to account for genetic relatedness
+
+**Script:** `scripts/04_pca_kinship.sh` (calls `scripts/04_pca_kinship.R`)
+
+**Usage:**
+
+```bash
+bash scripts/04_pca_kinship.sh <bfile> <outdir>
+```
+
+**Arguments:**
+
+|Argument|Description|Example|
+|-|-|-|
+|`bfile`|QC-filtered PLINK prefix|`data/plink/qc`|
+|`outdir`|Output directory|`results/pca`|
+
+**Example run:**
+
+```bash
+bash scripts/04_pca_kinship.sh \
+    data/plink/qc \
+    results/pca
+```
+
+**What the R script does:**
+
+1. Converts PLINK binary files to GDS format (required by SNPRelate)
+2. Computes PCA via `snpgdsPCA()` — extracts PC1 and PC2
+3. Computes an IBS kinship matrix via `snpgdsIBS()`
+4. Writes both to CSV files
+
+**Outputs:**
+
+|File|Description|
+|-|-|
+|`results/pca/PCA.csv`|Sample × PC matrix (Taxa, PC1, PC2)|
+|`results/pca/Kinship.csv`|Sample × sample kinship matrix|
+|`results/pca/arabidopsis.gds`|Intermediate GDS file (can be deleted)|
+
+**Expected terminal output:**
+
+```
+Running PCA and kinship estimation...
+  Input  : data/plink/qc
+  Output : results/pca
+
+✓ PCA & kinship complete → results/pca
+```
+---
