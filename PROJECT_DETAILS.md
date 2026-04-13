@@ -5,9 +5,22 @@
 
 ---
 
+---
+
+## Table of Contents
+
+- [1. Background](#1-background)
+- [2. Pipeline Overview](#2-pipeline-overview)
+- [3. Repository Structure](#3-repository-structure)
+- [4. Prerequisites](#4-prerequisites)
+- [5. Data](#5-data)
+- [6. References](#6-references)
+
+---
+
 ## Project: **GWAS Analysis Pipeline for *Arabidopsis thaliana* Flowering Time Using Public Data**
 
-## 1. Background
+## 1\. Background
 
 ### What is GWAS?
 
@@ -30,7 +43,7 @@ A **genome-wide association study (GWAS)** tests hundreds of thousands to millio
 
 ---
 
-## 2. Pipeline Overview
+## 2\. Pipeline Overview
 
 ```
 Raw VCF + Phenotype CSV
@@ -64,35 +77,36 @@ Raw VCF + Phenotype CSV
 
 ---
 
-## 3. Repository Structure
+## 3\. Repository Structure
+
 
 ```
 Arabidopsis-GWAS-Pipeline/
 ├── data/
 │   ├── raw/
-│   │   ├── 1001genomes_snp-short-indel_only_ACGTN.vcf.gz           # Full 1001G VCF
+│   │   ├── 1001genomes_snp-short-indel_only_ACGTN.vcf.gz   # Full 1001G VCF
 │   │   ├── 1001genomes_snp-short-indel_only_ACGTN.vcf.gz.tbi
-│   │   └── FT_Field_phenotype.csv                                   # AraPheno phenotype data
-│   ├── subset/                                                       # Created by Step 00b
+│   │   └── FT_Field_phenotype.csv                           # AraPheno phenotype data
+│   ├── subset/                                               # Created by steps 00 & 00b
 │   │   ├── subset.vcf.gz
 │   │   ├── subset.vcf.gz.csi
 │   │   ├── sample_ids.txt
-│   │   └── phenotype_subset.csv                                        # Created by Step 00b
-│   └── plink/                                                          # Created by Steps 2–3
+│   │   └── phenotype_subset.csv
+│   └── plink/                                               # Created by steps 2–3
 │       ├── raw.bed / raw.bim / raw.fam
 │       └── qc.bed  / qc.bim  / qc.fam
-├── results/                                                             # Created by Steps 4–6
+├── results/                                                  # Created by steps 4–6
 │   ├── pca/
 │   │   ├── PCA.csv
 │   │   └── Kinship.csv
 │   ├── gwas/
-│   │   └── GAPIT.FarmCPU.csv
+│   │   └── GAPIT.Association.GWAS_Results.FarmCPU.*.csv
 │   └── figures/
-│       ├── Manhattan.png
-│       └── QQ.png
+│       ├── Manhattan_<trait>.png
+│       └── QQ_<trait>.png
 ├── scripts/
 │   ├── 00_subset_data.sh
-|   ├── 00b_subset_vcf.sh
+│   ├── 00b_subset_vcf.sh
 │   ├── 01_filter_vcf.sh
 │   ├── 02_vcf_to_plink.sh
 │   ├── 03_qc_plink.sh
@@ -103,12 +117,12 @@ Arabidopsis-GWAS-Pipeline/
 │   ├── 06_plot_results.sh
 │   ├── 06_plot_results.R
 │   └── run_pipeline.sh
-└── FOLLOWME.md
-├── PROJECT_DETAILS.md
-└── README.md
+├── README.md
+├── FOLLOWME.md
+└── PROJECT_DETAILS.md
 ```
 ---
-## 4. Prerequisites
+## 4\. Prerequisites
 
 ### System tools
 
@@ -128,11 +142,11 @@ Install these once inside an R session:
 # SNPRelate (Bioconductor)
 if (!requireNamespace("BiocManager", quietly = TRUE))
     install.packages("BiocManager")
-BiocManager::install("SNPRelate")
+BiocManager::install(c("gdsfmt", "SNPRelate"))
 
 # GAPIT3
-install.packages("devtools")
-devtools::install_github("jiabowang/GAPIT3", force = TRUE)
+install.packages("pak")
+pak::pak("jiabowang/GAPIT3")
 
 # qqman
 install.packages("qqman")
@@ -141,7 +155,12 @@ install.packages("qqman")
 ### Python packages (for Step 0 only)
 
 ```bash
-conda create -n gwas_env -c conda-forge pandas numpy -y
+conda create -n gwas_env -c conda-forge -c bioconda \
+    pandas numpy plink \
+    r-base r-devtools r-biocmanager \
+    r-lme4 r-nloptr r-fs r-matrix r-rcpp \
+    zlib libcurl openssl \
+    compilers make -y
 ```
 
 > The subsetting script activates `gwas_env` automatically. All other steps use only shell tools and R.
@@ -156,7 +175,7 @@ Rscript --version              # R scripting front-end version 4.x.x
 ```
 ---
 
-## 5. Data
+## 5\. Data
 
 Before running the pipeline, the raw input files must be downloaded into `~/Arabidopsis-GWAS-Pipeline/data/raw/`. Run the following commands from the **project root**:
 
@@ -207,7 +226,7 @@ For classroom use, a pre-built subset of **100 accessions** is already in `data/
 
 ---
 
-## 6. References
+## 6\. References
 
 * The 1001 Genomes Consortium. 1001 Genomes Project. [https://1001genomes.org/](https://1001genomes.org/)
 * AraPheno: A public database of Arabidopsis thaliana phenotypes. [https://arapheno.1001genomes.org/](https://arapheno.1001genomes.org/)
