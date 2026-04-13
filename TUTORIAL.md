@@ -12,7 +12,7 @@ This tutorial walks you through a complete genome-wide association study (GWAS) 
 
 ---
 
-## 1\. Background
+## 1. Background
 
 ### What is GWAS?
 
@@ -65,6 +65,49 @@ Raw VCF + Phenotype CSV
    [06] Plot results (R)                ← Manhattan plot + QQ plot
 ```
 
-Each numbered step is a standalone shell script. A master script (`run_pipeline.sh`) chains STEPS 01-06 together.
+> *Each numbered step is a standalone shell script. A master script (`run_pipeline.sh`) chains steps 01-06 together. Steps 00 must run first, following by 00b before runing the master script.*
 
-\---
+---
+
+## 3. Repository Structure
+
+```
+Arabidopsis-GWAS-Pipeline/
+├── data/
+│   ├── raw/
+│   │   ├── 1001genomes_snp-short-indel_only_ACGTN.vcf.gz           # Full 1001G VCF
+│   │   ├── 1001genomes_snp-short-indel_only_ACGTN.vcf.gz.tbi
+│   │   └── FT_Field_phenotype.csv                                   # AraPheno phenotype data
+│   ├── subset/                                                       # Created by Step 00b
+│   │   ├── subset.vcf.gz
+│   │   ├── subset.vcf.gz.csi
+│   │   ├── sample_ids.txt
+│   │   └── phenotype_subset.csv                                        # Created by Step 00b
+│   └── plink/                                                          # Created by Steps 2–3
+│       ├── raw.bed / raw.bim / raw.fam
+│       └── qc.bed  / qc.bim  / qc.fam
+├── results/                                                             # Created by Steps 4–6
+│   ├── pca/
+│   │   ├── PCA.csv
+│   │   └── Kinship.csv
+│   ├── gwas/
+│   │   └── GAPIT.FarmCPU.csv
+│   └── figures/
+│       ├── Manhattan.png
+│       └── QQ.png
+├── scripts/
+│   ├── 00_subset_data.sh
+|   ├── 00b_subset_vcf.sh
+│   ├── 01_filter_vcf.sh
+│   ├── 02_vcf_to_plink.sh
+│   ├── 03_qc_plink.sh
+│   ├── 04_pca_kinship.sh
+│   ├── 04_pca_kinship.R
+│   ├── 05_gwas.sh
+│   ├── 05_gwas.R
+│   ├── 06_plot_results.sh
+│   ├── 06_plot_results.R
+│   └── run_pipeline.sh
+└── README.md
+└── TUTORIAL.md
+```
