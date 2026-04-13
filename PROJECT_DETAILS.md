@@ -160,5 +160,26 @@ Rscript --version              # R scripting front-end version 4.x.x
 ```
 ---
 
+## 5. Data
+
+Before running the pipeline, the raw input files must be downloaded into `~/Arabidopsis-GWAS-Pipeline/data/raw/`. Run the following commands from the **project root**:
+
+```bash
+# Download the genotype VCF (~19 GB — this will take a while)
+wget https://1001genomes.org/data/GMI-MPI/releases/v3.1/1001genomes_snp-short-indel_only_ACGTN.vcf.gz \
+    -P data/raw/
+
+# Download the phenotype data
+wget "https://arapheno.1001genomes.org/phenotype/6/values.csv" \
+    -O data/raw/FT_Field_phenotype.csv
+```
+
+After downloading, `~/Arabidopsis-GWAS-Pipeline/data/raw/` should contain:
+
+```
+Arabidopsis-GWAS-Pipeline/data/raw/
+├── 1001genomes_snp-short-indel_only_ACGTN.vcf.gz
+└── FT_Field_phenotype.csv
+```
 
 
