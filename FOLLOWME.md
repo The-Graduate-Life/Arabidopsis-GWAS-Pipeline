@@ -251,3 +251,59 @@ Filtering VCF...
 ✓ VCF filtered → <N> SNPs retained: data/subset/filtered.vcf.gz
 ```
 ---
+
+### Step 2 — Convert VCF to PLINK
+
+PLINK's binary format (`.bed`/`.bim`/`.fam`) is required by PLINK's QC tools and is also readable by the SNPRelate and GAPIT3 R packages.
+
+**Script:** `scripts/02_vcf_to_plink.sh`
+
+**Usage:**
+
+```bash
+bash scripts/02_vcf_to_plink.sh <vcf> <out>
+```
+
+**Arguments:**
+
+|Argument|Description|Example|
+|-|-|-|
+|`vcf`|Filtered VCF from Step 1|`data/subset/filtered.vcf.gz`|
+|`out`|Output PLINK file prefix|`data/plink/raw`|
+
+**Example run:**
+
+```bash
+bash scripts/02_vcf_to_plink.sh \
+    data/subset/filtered.vcf.gz \
+    data/plink/raw
+```
+
+**Key PLINK flags:**
+
+|Flag|Purpose|
+|-|-|
+|`--allow-extra-chr`|Accepts Arabidopsis chromosome names (1–5, not chr1–chr5)|
+|`--set-missing-var-ids @:#`|Assigns `CHROM:POS` IDs to any unlabelled variants|
+|`--make-bed`|Produces binary `.bed` / `.bim` / `.fam` output|
+
+**Outputs:**
+
+|File|Description|
+|-|-|
+|`data/plink/raw.bed`|Binary genotype matrix|
+|`data/plink/raw.bim`|Variant information (chr, id, pos, alleles)|
+|`data/plink/raw.fam`|Sample information|
+
+**Expected terminal output:**
+
+```
+Converting VCF to PLINK...
+  Input  : data/subset/filtered.vcf.gz
+  Output : data/plink/raw.bed / .bim / .fam
+
+✓ PLINK files generated → 100 samples, <N> SNPs
+```
+---
+
+
