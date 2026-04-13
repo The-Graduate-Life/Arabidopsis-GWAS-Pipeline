@@ -150,6 +150,15 @@ conda create -n gwas_env -c conda-forge pandas numpy -y
 
 > The subsetting script activates `gwas_env` automatically. All other steps use only shell tools and R.
 
+### Verify installation
+
+```bash
+bcftools --version | head -1   # bcftools 1.x
+tabix --version | head -1      # tabix (htslib) 1.x
+plink --version                # PLINK v1.9x
+Rscript --version              # R scripting front-end version 4.x.x
+```
+---
 
 
 
