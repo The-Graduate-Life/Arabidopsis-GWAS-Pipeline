@@ -200,3 +200,13 @@ accession_id,replicate_id,FT16,FT10
 100000,6521,48.25,71.67
 ...
 ```
+
+* Source: [https://arapheno.1001genomes.org/study/12/](https://arapheno.1001genomes.org/study/12/)
+* `FT16`: days to flower at 16 °C
+* `FT10`: days to flower at 10 °C (vernalization treatment)
+
+### The pre-built subset
+
+For classroom use, a pre-built subset of **100 accessions** is already in `data/subset/`. You can skip Step 0 and start directly at Step 1 if you want to use this subset.
+
+---
