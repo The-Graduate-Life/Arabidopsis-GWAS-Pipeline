@@ -5,9 +5,28 @@
 #              pipeline end-to-end. Executes all steps in order, from VCF
 #              filtering through to Manhattan and QQ plot generation.
 #
-#              Assumes data has already been subsetted using 00_subset_data.sh.
-#              All scripts are expected to live in the scripts/ directory and
-#              all data in the data/ directory relative to the project root.
+#              Before running this script, the following setup scripts must
+#              have been run in order:
+#                1. bash scripts/00_subset_data.sh 100
+#                   Sets up the conda environment, downloads phenotype data,
+#                   and selects accessions.
+#                2. bash scripts/00b_subset_vcf.sh   (local)
+#                   qsub scripts/00b_subset_vcf.sh   (HPC)
+#                   Subsets the VCF to selected accessions. Run as a PBS job
+#                   on HPC due to memory requirements (~32 GB).
+#
+#              This script can be run locally or submitted as a PBS job on HPC:
+#                bash scripts/run_pipeline.sh         # local
+#                qsub scripts/run_pipeline.sh         # HPC (PBS)
+#
+# PBS DIRECTIVES (ignored when run with bash locally):
+#PBS -N gwas_pipeline
+#PBS -q class
+#PBS -W group_list=classq
+#PBS -j oe
+#PBS -m abe
+#PBS -l walltime=12:00:00
+#PBS -l select=ncpus=8:mpiprocs=8:mem=32gb
 #
 # USAGE:
 #   bash run_pipeline.sh
@@ -27,7 +46,7 @@
 #   results/figures/QQ_<trait>.png         QQ plot per trait
 #
 # DEPENDENCIES:
-#   bcftools >= 1.15, tabix, plink >= 1.9, R >= 4.0
+#   bcftools >= 1.19, tabix, plink >= 1.9, R >= 4.0
 #   R packages: SNPRelate, GAPIT3, qqman
 #
 # EXAMPLE:
@@ -43,13 +62,17 @@ set -euo pipefail
 # -----------------------------------------------------------------------------
 # Always run from the project root regardless of where the script is called from
 # -----------------------------------------------------------------------------
-cd "$(dirname "$0")/.."
+# Working directory
+# On HPC: PBS sets $PBS_O_WORKDIR to where qsub was called from
+# Locally: resolve from the script's location
+# -----------------------------------------------------------------------------
+cd "${PBS_O_WORKDIR:-$(cd "$(dirname "$0")/.." && pwd)}"
 
 # -----------------------------------------------------------------------------
 # Paths — edit these if your directory structure differs
 # -----------------------------------------------------------------------------
 readonly SCRIPTS_DIR="scripts"
-readonly VCF_IN="data/raw/1001genomes_snp-short-indel_only_ACGTN.vcf.gz"
+readonly VCF_IN="data/subset/subset.vcf.gz"
 readonly VCF_FILTERED="data/subset/filtered.vcf.gz"
 readonly PLINK_RAW="data/plink/raw"
 readonly PLINK_QC="data/plink/qc"
@@ -60,12 +83,21 @@ readonly OUTDIR_GWAS="results/gwas"
 # -----------------------------------------------------------------------------
 # Validation — fail early if key inputs are missing
 # -----------------------------------------------------------------------------
-[[ -f "$VCF_IN" ]] || { echo "ERROR: VCF not found: $VCF_IN"; echo "Place the VCF in data/raw/ as instructed in the README."; exit 1; }
-[[ -f "$PHENO" ]]  || { echo "ERROR: Phenotype not found: $PHENO"; echo "Place the phenotype CSV in data/raw/ as instructed in the README."; exit 1; }
+[[ -f "$VCF_IN" ]] || {
+    echo "ERROR: Subset VCF not found: $VCF_IN"
+    echo "Run scripts/00_subset_data.sh first, then scripts/00b_subset_vcf.sh"
+    exit 1
+}
+[[ -f "$PHENO" ]] || {
+    echo "ERROR: Phenotype not found: $PHENO"
+    echo "Run scripts/00_subset_data.sh first."
+    exit 1
+}
 
 # -----------------------------------------------------------------------------
 # Environment setup
 # -----------------------------------------------------------------------------
+module load anaconda 2>/dev/null || true
 source "$(conda info --base)/etc/profile.d/conda.sh"
 conda activate gwas_env
 export PATH="$(conda info --base)/envs/gwas_env/bin:$PATH"
