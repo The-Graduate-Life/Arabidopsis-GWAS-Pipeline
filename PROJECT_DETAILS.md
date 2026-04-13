@@ -218,10 +218,6 @@ accession_id,replicate_id,FT16,FT10
 * `FT16`: days to flower at 16 °C
 * `FT10`: days to flower at 10 °C (vernalization treatment)
 
-### The pre-built subset
-
-For classroom use, a pre-built subset of **100 accessions** is already in `data/subset/`. You can skip Step 0 and start directly at Step 1 if you want to use this subset.
-
 ---
 
 ## 6\. References
