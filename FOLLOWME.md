@@ -491,3 +491,47 @@ Running GWAS (FarmCPU via GAPIT3)...
 
 > This step is computationally intensive and may take several minutes depending on the number of SNPs and accessions.
 ---
+
+### Step 6 — Plot Results
+
+This step generates a **Manhattan plot** and a **QQ plot** from the GWAS results using the **qqman** R package.
+
+**Script:** `scripts/06_plot_results.sh` (calls `scripts/06_plot_results.R`)
+
+**Usage:**
+
+```bash
+bash scripts/06_plot_results.sh <gwas_file>
+```
+
+**Arguments:**
+
+|Argument|Description|Example|
+|-|-|-|
+|`gwas_file`|GAPIT3 results CSV from Step 5|`results/gwas/GAPIT.FarmCPU.csv`|
+
+**Example run:**
+
+```bash
+bash scripts/06_plot_results.sh \
+    results/gwas/GAPIT.FarmCPU.csv
+```
+
+**Outputs:**
+
+|File|Dimensions|Description|
+|-|-|-|
+|`results/figures/Manhattan.png`|2000 × 1000 px|SNP associations across all chromosomes|
+|`results/figures/QQ.png`|1000 × 1000 px|Observed vs. expected p-value distribution|
+
+**Expected terminal output:**
+
+```
+Generating plots...
+  Input  : results/gwas/GAPIT.FarmCPU.csv
+  Output : results/figures/Manhattan.png
+           results/figures/QQ.png
+
+✓ Plots saved → results/figures/Manhattan.png & QQ.png
+```
+---
