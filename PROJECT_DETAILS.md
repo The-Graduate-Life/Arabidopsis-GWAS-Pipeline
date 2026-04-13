@@ -108,7 +108,8 @@ Arabidopsis-GWAS-Pipeline/
 │   ├── 06_plot_results.sh
 │   ├── 06_plot_results.R
 │   └── run_pipeline.sh
-└── README.md
+└── PROJECT_DETAILS.md
+├── README.md
 └── TUTORIAL.md
 ```
 ---
