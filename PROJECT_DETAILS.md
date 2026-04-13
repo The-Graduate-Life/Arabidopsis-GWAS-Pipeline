@@ -123,7 +123,7 @@ Arabidopsis-GWAS-Pipeline/
 
 ## 4\. Prerequisites
 
-For a smooth computational journey during this project, the following tools and packages must be installed prior running `01_filter_vcf.sh`. Fortunately, the script  `00_subset_data.sh` will smoothly install all the required tools, packages, and dependencies.
+For a smooth computational journey during this project, the following tools and packages must be installed prior running `01_filter_vcf.sh`. Luky you 😊, the script  `00_subset_data.sh` will smoothly install all the required tools, packages, and dependencies.
 
 ### System tools
 
