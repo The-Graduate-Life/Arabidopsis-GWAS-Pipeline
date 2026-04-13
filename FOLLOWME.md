@@ -113,7 +113,7 @@ Selected 100 accessions  →  data/subset/sample_ids.txt
   Phenotype output         : data/subset/phenotype_subset.csv
 ```
 
-### Step 0a — Select Accessions and Download Phenotype
+### Step 0b — Select Accessions and Download Phenotype
 
 > *Skip this step if you are using the pre-built subset in `data/subset/`. Proceed to Step 0b.*
 
