@@ -306,4 +306,58 @@ Converting VCF to PLINK...
 ```
 ---
 
+### Step 3 — Quality Control
 
+This step applies standard GWAS QC thresholds to remove low-quality variants and samples.
+
+**Script:** `scripts/03_qc_plink.sh`
+
+**Usage:**
+
+```bash
+bash scripts/03_qc_plink.sh <bfile> <out>
+```
+
+**Arguments:**
+
+|Argument|Description|Example|
+|-|-|-|
+|`bfile`|PLINK prefix from Step 2|`data/plink/raw`|
+|`out`|Output QC-filtered PLINK prefix|`data/plink/qc`|
+
+**Example run:**
+
+```bash
+bash scripts/03_qc_plink.sh \
+    data/plink/raw \
+    data/plink/qc
+```
+
+**QC filters applied:**
+
+|Filter|Threshold|Flag|Rationale|
+|-|-|-|-|
+|Minor allele frequency|MAF ≥ 5%|`--maf 0.05`|Very rare variants have insufficient power in small datasets|
+|SNP missingness|< 10%|`--geno 0.1`|Removes poorly genotyped variants|
+|Sample missingness|< 10%|`--mind 0.1`|Removes poorly genotyped individuals|
+|Hardy–Weinberg equilibrium|Disabled|`--hwe 0`|*A. thaliana* is a selfing species; HWE does not apply|
+
+**Outputs:**
+
+|File|Description|
+|-|-|
+|`data/plink/qc.bed`|QC-filtered genotype matrix|
+|`data/plink/qc.bim`|QC-filtered variant information|
+|`data/plink/qc.fam`|QC-filtered sample information|
+
+**Expected terminal output:**
+
+```
+Running QC...
+  Input  : data/plink/raw
+  Output : data/plink/qc
+  Filters: MAF >= 0.05 | geno < 0.1 | mind < 0.1 | HWE disabled
+
+✓ QC complete → <N_samples> samples, <N_snps> SNPs: data/plink/qc
+```
+---
