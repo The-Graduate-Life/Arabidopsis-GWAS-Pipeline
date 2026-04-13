@@ -605,6 +605,33 @@ The QQ plot compares the distribution of observed p-values (y-axis) to what woul
   The red line represents the expected distribution under the null hypothesis. 
   Deviation from the diagonal indicates true associations.</em>
 </p>
+
 ---
 
+## 9\. Troubleshooting
 
+**`ERROR: Subset VCF not found`**
+Make sure you have run Step 0 or that `data/subset/subset.vcf.gz` exists. The pre-built subset is included in the repository.
+
+**`command not found: bcftools` / `plink` / `Rscript`**
+These tools must be on your `PATH`. Install them via conda and activate the environment before running the scripts:
+
+```bash
+conda activate gwas_env
+```
+
+**R package installation failures**
+GAPIT3 requires several Bioconductor dependencies. Install them first:
+
+```r
+BiocManager::install(c("multtest", "gplots", "LDheatmap", "genetics",
+                       "ape", "EMMREML", "scatterplot3d"))
+devtools::install_github("jiabowang/GAPIT3", force = TRUE)
+```
+
+> **Fortunately, all these packages are included in step 0 with the script `00_subset_data.sh`.**
+
+**`set -euo pipefail` causes the script to exit unexpectedly**
+Run the failing step manually with `bash -x scripts/<script>.sh ...` to see exactly which command failed and why.
+
+---
