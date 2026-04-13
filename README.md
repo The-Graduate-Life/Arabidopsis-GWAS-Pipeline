@@ -91,7 +91,7 @@ All steps will be automated using shell script `run_pipeline.sh` as master scrip
    - Results directories for QC, PCA/kinship, GWAS, and plots  
    - The master script `run_pipeline.sh`  
 
-2. **Tutorial documentation** (`tutorial.md`)  
+2. **Tutorial documentation** (`TUTORIAL.md`)  
    - Step-by-step instructions  
    - Explanation of each script and workflow stage  
 
