@@ -22,22 +22,22 @@
 
 ### What is GWAS?
 
-A **genome-wide association study (GWAS)** tests hundreds of thousands to millions of single-nucleotide polymorphisms (SNPs) across the genome for statistical association with a trait of interest. For each SNP, we ask: do individuals carrying one allele tend to have a systematically different phenotype than individuals carrying the other allele?
+A **genome-wide association study (GWAS)** is a genetic technique to test hundreds of thousands to millions of single-nucleotide polymorphisms (SNPs) across the genome for statistical association with a trait of interest. For each SNP, the GWAS inform if the individuals carrying one allele tend to have a systematically different phenotype than individuals carrying the other allele.
 
 ### Why *Arabidopsis thaliana* flowering time?
 
-*A. thaliana* is a model plant with a well-characterized genome and extensive publicly available data. **Flowering time** (the number of days from germination to first flower) is a classic quantitative trait with well-known genetic architecture, making it ideal for teaching GWAS concepts. We use two phenotypes:
+*Arabidopsis thaliana* is a model plant most worldwidly studied and with a well-characterized genome and extensive publicly available data. The **Flowering time** (the number of days from germination to first flower) in *A. thaliana* is a classic quantitative trait with well-known genetic architecture, making it ideal for teaching GWAS concepts. We use two phenotypes:
 
-|Column|Meaning|
+|Traits|Meaning|
 |-|-|
 |`FT16`|Flowering time measured at 16 °C (long day)|
-|`FT10`|Flowering time measured at 10 °C (short day, vernalization)|
+|`FT10`|Flowering time measured at 10 °C (short day)|
 
 ### Why FarmCPU?
 
-*A. thaliana* has strong geographic population structure. If ignored, variants that differ in frequency between populations — but are not causally linked to the trait — will produce false-positive associations. **FarmCPU** (Fixed and Random Model Circulating Probability Unification) is a mixed-model method that simultaneously controls for population structure (via PCA covariates) and kinship (via a random effect), while avoiding model overfitting.
+**FarmCPU** (Fixed and Random Model Circulating Probability Unification) is a statistical mixed-model method that simultaneously controls for population structure (via PCA covariates) and kinship (via a random effect), while avoiding model overfitting. Since *A. thaliana* has strong geographic population structure, if it is ignored, variants that differ in frequency between populations (but are not causally linked to the trait) will produce false-positive associations. Based on this, **FarmCPU** is one of thest mixed-models to handle these false-positive associations.
 
-> *Note on Hardy-Wenberg Equilibrium (HWE) filtering: *A. thaliana* reproduces almost exclusively by self-fertilization, meaning the vast majority of loci deviate strongly from Hardy–Weinberg equilibrium by design. The QC script disables HWE filtering for this reason.*
+> *Note on Hardy-Wenberg Equilibrium (HWE) filtering: *A. thaliana* reproduces almost exclusively by self-fertilization, meaning the vast majority of loci deviate strongly from HWE by design. To handle that, the quality control (QC) helps to disable HWE filtering for this reason in the script.*
 
 ---
 
@@ -71,13 +71,13 @@ Raw VCF + Phenotype CSV
    [06] Plot results (R)                ← Manhattan plot + QQ plot
 ```
 
-> *Each numbered step is a standalone shell script. A master script (`run_pipeline.sh`) chains steps 01-06 together. Steps 00 must run first, following by 00b before runing the master script.*
+> *Each numbered step is a standalone shell script. A master script (`run_pipeline.sh`) chains steps 01-06 together. Script `00_subset_data.sh` must run first, following by `00b_subset_vcf.sh` before runing the master script.*
 
 ---
 
 ## 3\. Repository Structure
 
-
+Here is a physical structure well-organized for a clean analysis in this project:
 ```
 Arabidopsis-GWAS-Pipeline/
 ├── data/
@@ -122,6 +122,8 @@ Arabidopsis-GWAS-Pipeline/
 ---
 ## 4\. Prerequisites
 
+For a smooth computational journey during this project, the following tools and packages must be installed prior running `01_filter_vcf.sh`. Fortunately, the script  `00_subset_data.sh` will smoothly install all the required tools, packages, and dependencies.
+
 ### System tools
 
 |Tool|Version|Install|
@@ -165,6 +167,8 @@ conda create -n gwas_env -c conda-forge -c bioconda \
 
 ### Verify installation
 
+To make sure these tools are installed and check the active version, run the following lines of code in the command line:
+
 ```bash
 bcftools --version | head -1   # bcftools 1.x
 tabix --version | head -1      # tabix (htslib) 1.x
@@ -175,7 +179,7 @@ Rscript --version              # R scripting front-end version 4.x.x
 
 ## 5\. Data
 
-Before running the pipeline, the raw input files must be downloaded into `~/Arabidopsis-GWAS-Pipeline/data/raw/`. Run the following commands from the **project root**:
+Before running the pipeline, the raw input files must be downloaded into `~/Arabidopsis-GWAS-Pipeline/data/raw/`. Run the following commands from the **project root directory**:
 
 ```bash
 # Download the genotype VCF (~19 GB — this will take a while)
@@ -187,7 +191,7 @@ wget "https://arapheno.1001genomes.org/phenotype/6/values.csv" \
     -O data/raw/FT_Field_phenotype.csv
 ```
 
-After downloading, `~/Arabidopsis-GWAS-Pipeline/data/raw/` should contain:
+After downloading, the project root directory (`~/Arabidopsis-GWAS-Pipeline/data/raw/`) should contain at least these raw files:
 
 ```
 Arabidopsis-GWAS-Pipeline/data/raw/
@@ -205,7 +209,7 @@ The full VCF (`1001genomes_snp-short-indel_only_ACGTN.vcf.gz`) contains SNPs and
 
 ### Phenotype data — AraPheno
 
-The phenotype file (`FT_Field_phenotype.csv`) contains field-measured flowering time for hundreds of accessions.
+The phenotype file (`FT_Field_phenotype.csv`) contains field-measured flowering time for hundreds of accessions and has the following structure:
 
 ```
 accession_id,replicate_id,FT16,FT10
@@ -224,8 +228,8 @@ accession_id,replicate_id,FT16,FT10
 
 * The 1001 Genomes Consortium. 1001 Genomes Project. [https://1001genomes.org/](https://1001genomes.org/)
 * AraPheno: A public database of Arabidopsis thaliana phenotypes. [https://arapheno.1001genomes.org/](https://arapheno.1001genomes.org/)
-* Wang, J. et al. (2018). GAPIT3: Boosting Power and Accuracy for Genomic Association and Prediction. *Genomics, Proteomics \& Bioinformatics*. [https://zzlab.net/GAPIT/](https://zzlab.net/GAPIT/)
-* Purcell, S. et al. (2007). PLINK: A Tool Set for Whole-Genome Association and Population-Based Linkage Analyses. *AJHG*. [https://www.cog-genomics.org/plink/](https://www.cog-genomics.org/plink/)
-* Danecek, P. et al. (2021). Twelve years of SAMtools and BCFtools. *GigaScience*. [http://www.htslib.org/](http://www.htslib.org/)
-* Zheng, X. et al. (2012). A high-performance computing toolset for relatedness and principal component analysis of SNP data. *Bioinformatics*. SNPRelate: [https://bioconductor.org/packages/SNPRelate/](https://bioconductor.org/packages/SNPRelate/)
+* Wang, J., & Zhang, Z. (2021). GAPIT version 3: boosting power and accuracy for genomic association and prediction. *Genomics, proteomics & bioinformatics, 19(4)*, 629-640. [https://zzlab.net/GAPIT/](https://zzlab.net/GAPIT/)
+* Purcell, S., Neale, B., Todd-Brown, K., Thomas, L., Ferreira, M. A., Bender, D., ... & Sham, P. C. (2007). PLINK: a tool set for whole-genome association and population-based linkage analyses. *The American journal of human genetics, 81(3)*, 559-575. [https://www.cog-genomics.org/plink/](https://www.cog-genomics.org/plink/)
+* Danecek, P., Bonfield, J. K., Liddle, J., Marshall, J., Ohan, V., Pollard, M. O., ... & Li, H. (2021). Twelve years of SAMtools and BCFtools. *Gigascience, 10(2)*, giab008. [http://www.htslib.org/](http://www.htslib.org/)
+* Zheng, X., Levine, D., Shen, J., Gogarten, S. M., Laurie, C., & Weir, B. S. (2012). A high-performance computing toolset for relatedness and principal component analysis of SNP data. *Bioinformatics, 28(24)*, 3326-3328. SNPRelate: [https://bioconductor.org/packages/SNPRelate/](https://bioconductor.org/packages/SNPRelate/)
 * Turner, S. D. (2014). qqman: an R package for visualizing GWAS results using Q-Q and manhattan plots. *bioRxiv*. [https://cran.r-project.org/web/packages/qqman/](https://cran.r-project.org/web/packages/qqman/)
