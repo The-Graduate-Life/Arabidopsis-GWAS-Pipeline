@@ -41,7 +41,7 @@ wget "https://arapheno.1001genomes.org/phenotype/6/values.csv" \
 
 >All commands below assume you are in the **project root**.
 
----
+
 
 ### Step 0: Subset the Data
 
@@ -153,8 +153,8 @@ bash scripts/00_subset_data.sh 100 12
 | `data/subset/sample_ids.txt` | Selected accession IDs, one per line |
 | `data/subset/phenotype_subset.csv` | Phenotype file for selected accessions |
 
----
----
+
+
 ### Step 0b: Subset the VCF
 
 > *Skip this step if `data/subset/subset.vcf.gz` already exists. Proceed to Step 1.*
@@ -200,7 +200,7 @@ Subsetting VCF to 100 accessions...
   bash scripts/run_pipeline.sh
   qsub scripts/run_pipeline.sh
 ```
----
+
 
 ### Step 1: Filter the VCF
 
@@ -253,7 +253,7 @@ Filtering VCF...
 
 ✓ VCF filtered → <N> SNPs retained: data/subset/filtered.vcf.gz
 ```
----
+
 
 ### Step 2: Convert VCF to PLINK
 
@@ -307,7 +307,7 @@ Converting VCF to PLINK...
 
 ✓ PLINK files generated → 100 samples, <N> SNPs
 ```
----
+
 
 ### Step 3: Quality Control
 
@@ -363,7 +363,7 @@ Running QC...
 
 ✓ QC complete → <N_samples> samples, <N_snps> SNPs: data/plink/qc
 ```
----
+
 
 ### Step 4: PCA & Kinship
 
@@ -419,7 +419,7 @@ Running PCA and kinship estimation...
 
 ✓ PCA & kinship complete → results/pca
 ```
----
+
 
 ### Step 5: Run GWAS
 
@@ -493,7 +493,7 @@ Running GWAS (FarmCPU via GAPIT3)...
 ```
 
 > This step is computationally intensive and may take several minutes depending on the number of SNPs and accessions.
----
+
 
 ### Step 6: Plot Results
 
@@ -537,7 +537,7 @@ Generating plots...
 
 ✓ Plots saved → results/figures/Manhattan.png & QQ.png
 ```
----
+
 
 ## Step 7: Running the Full Pipeline at Once
 
@@ -549,7 +549,7 @@ bash scripts/run_pipeline.sh
 
 The master script runs Steps 1–6 in order, validates that required input files exist before starting, and prints a summary of all output locations when complete.
 
-**Customizing paths:** All input/output paths are defined as variables at the top of `run_pipeline.sh`. Edit them if your directory structure differs from the default:
+>**Customizing paths:** All input/output paths are defined as variables at the top of `run_pipeline.sh`. Edit them if your directory structure differs from the default:
 
 ```bash
 readonly VCF_IN="data/subset/subset.vcf.gz"
@@ -574,7 +574,7 @@ readonly OUTDIR_GWAS="results/gwas"
   GWAS results    : results/gwas/GAPIT.FarmCPU.csv
   Figures         : results/figures/Manhattan.png & QQ.png
 ```
----
+
 
 ## Step 8: Interpreting the Results
 
@@ -592,7 +592,8 @@ The Manhattan plot shows `-log10(p-value)` for each SNP across the five Arabidop
   <em>Figure 1. Manhattan plot for flowering time at 10°C (FT10) in Kansas accessions. 
   The red dashed line indicates the genome-wide significance threshold (p < 5×10⁻⁸).</em>
 </p>
-      
+
+     
 ### QQ Plot
 
 The QQ plot compares the distribution of observed p-values (y-axis) to what would be expected under the null hypothesis of no association (x-axis). Both axes are on the `-log10` scale.
@@ -609,7 +610,7 @@ The QQ plot compares the distribution of observed p-values (y-axis) to what woul
   Deviation from the diagonal indicates true associations.</em>
 </p>
 
----
+
 
 ## Step 9: Troubleshooting
 
@@ -632,10 +633,32 @@ BiocManager::install(c("multtest", "gplots", "LDheatmap", "genetics",
 devtools::install_github("jiabowang/GAPIT3", force = TRUE)
 ```
 
-> ***Fortunately, all these packages and dependencies are included in step 0 with the script `00_subset_data.sh`.***
+> ***Lucky you 😊, all these packages and dependencies are included in step 0 with the script `00_subset_data.sh`.***
 
 
 **`set -euo pipefail` causes the script to exit unexpectedly**
 Run the failing step manually with `bash -x scripts/<script>.sh ...` to see exactly which command failed and why.
+
+---
+
+
+## How to Cite
+
+If you use this pipeline in your work, please cite:
+
+> Pierre, F. (2026). *GWAS Analysis Pipeline for Arabidopsis thaliana Flowering Time Using Public Data*. GitHub. https://github.com/The-Graduate-Life/Arabidopsis-GWAS-Pipeline
+
+
+## AI Disclosure
+
+This pipeline was completed with the assistance of **[Claude](https://claude.ai)** (Anthropic).
+
+AI assistance was used for:
+- Debugging shell scripts and R code
+- Refining docstring-style script headers
+- Troubleshooting conda environment and R package installation
+- Adapting the pipeline for HPC submission (PBS)
+
+All biological decisions, pipeline design, data selection, and interpretation of results were made by the author. AI-generated code and documentation were reviewed, tested, and modified before inclusion in the final pipeline.
 
 ---
