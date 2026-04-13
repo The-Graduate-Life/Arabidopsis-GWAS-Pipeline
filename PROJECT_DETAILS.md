@@ -182,4 +182,21 @@ Arabidopsis-GWAS-Pipeline/data/raw/
 └── FT_Field_phenotype.csv
 ```
 
+### Genotype data — 1001 Genomes Project
 
+The full VCF (`1001genomes_snp-short-indel_only_ACGTN.vcf.gz`) contains SNPs and short indels for **1,135 natural accessions** of *A. thaliana* across five chromosomes.
+
+* Source: [https://1001genomes.org/data/GMI-MPI/releases/v3.1/](https://1001genomes.org/data/GMI-MPI/releases/v3.1/)
+* Format: bgzipped VCF with tabix index (`.tbi`)
+* Chromosome naming: `1`, `2`, `3`, `4`, `5` (no "chr" prefix)
+
+### Phenotype data — AraPheno
+
+The phenotype file (`FT_Field_phenotype.csv`) contains field-measured flowering time for hundreds of accessions.
+
+```
+accession_id,replicate_id,FT16,FT10
+10000,6520,54.5,61.0
+100000,6521,48.25,71.67
+...
+```
