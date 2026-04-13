@@ -12,7 +12,9 @@
 - [3. Repository Structure](#3-repository-structure)
 - [4. Prerequisites](#4-prerequisites)
 - [5. Data](#5-data)
-- [6. References](#6-references)
+- [6. How to Cite](#6-how-to-cite)
+- [7. AI Disclosure](#7-ai-disclosure)
+- [8. References](8#-references)
 
 ---
 
@@ -224,7 +226,31 @@ accession_id,replicate_id,FT16,FT10
 
 ---
 
-## 6\. References
+## 6\. How to Cite
+
+If you use this pipeline in your work, please cite:
+
+> Pierre, F. (2026). *GWAS Analysis Pipeline for Arabidopsis thaliana Flowering Time Using Public Data*. GitHub. https://github.com/The-Graduate-Life/Arabidopsis-GWAS-Pipeline
+
+Please also cite the underlying tools (see [References](#8-references)).
+
+---
+
+## 7\. AI Disclosure
+
+This pipeline was completed with the assistance of **[Claude](https://claude.ai)** (Anthropic).
+
+AI assistance was used for:
+- Debugging shell scripts and R code
+- Refining docstring-style script headers
+- Troubleshooting conda environment and R package installation
+- Adapting the pipeline for HPC submission (PBS)
+
+All biological decisions, pipeline design, data selection, and interpretation of results were made by the author. AI-generated code and documentation were reviewed, tested, and modified before inclusion in the final pipeline.
+
+---
+
+## 8\. References
 
 * The 1001 Genomes Consortium. 1001 Genomes Project. [https://1001genomes.org/](https://1001genomes.org/)
 * AraPheno: A public database of Arabidopsis thaliana phenotypes. [https://arapheno.1001genomes.org/](https://arapheno.1001genomes.org/)
