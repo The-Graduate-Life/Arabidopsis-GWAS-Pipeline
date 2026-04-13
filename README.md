@@ -63,7 +63,7 @@ The pipeline is divided into **six main stages**, each will be implemented as a 
    - To compute kinship matrix to account for relatedness  
 
 5. **GWAS Analysis**  
-   - Run GWAS using FarmCPU / MLM models via **GAPIT** in R  
+   - Run GWAS using FarmCPU mixed-model via **GAPIT** in R  
    - Correct for population structure (PCA) and kinship  
 
 6. **Visualization**  
