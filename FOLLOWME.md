@@ -629,7 +629,7 @@ BiocManager::install(c("multtest", "gplots", "LDheatmap", "genetics",
 devtools::install_github("jiabowang/GAPIT3", force = TRUE)
 ```
 
-> **Fortunately, all these packages and dependencies are included in step 0 with the script `00_subset_data.sh`.**
+> ***Fortunately, all these packages and dependencies are included in step 0 with the script `00_subset_data.sh`.***
 
 
 **`set -euo pipefail` causes the script to exit unexpectedly**
