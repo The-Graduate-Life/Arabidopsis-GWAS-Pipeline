@@ -535,3 +535,40 @@ Generating plots...
 ✓ Plots saved → results/figures/Manhattan.png & QQ.png
 ```
 ---
+
+## 7\. Running the Full Pipeline at Once
+
+If you already have the subsetted data in `data/subset/` (either from Step 0 or the pre-built subset), you can run the entire pipeline with a single command:
+
+```bash
+bash scripts/run_pipeline.sh
+```
+
+The master script runs Steps 1–6 in order, validates that required input files exist before starting, and prints a summary of all output locations when complete.
+
+**Customizing paths:** All input/output paths are defined as variables at the top of `run_pipeline.sh`. Edit them if your directory structure differs from the default:
+
+```bash
+readonly VCF_IN="data/subset/subset.vcf.gz"
+readonly VCF_FILTERED="data/subset/filtered.vcf.gz"
+readonly PLINK_RAW="data/plink/raw"
+readonly PLINK_QC="data/plink/qc"
+readonly PHENO="data/subset/phenotype_subset.csv"
+readonly OUTDIR_PCA="results/pca"
+readonly OUTDIR_GWAS="results/gwas"
+```
+
+**Expected summary at completion:**
+
+```
+=====================================
+   ✓ Pipeline complete
+=====================================
+
+  Filtered VCF    : data/subset/filtered.vcf.gz
+  PLINK QC files  : data/plink/qc.bed / .bim / .fam
+  PCA & kinship   : results/pca
+  GWAS results    : results/gwas/GAPIT.FarmCPU.csv
+  Figures         : results/figures/Manhattan.png & QQ.png
+```
+---
