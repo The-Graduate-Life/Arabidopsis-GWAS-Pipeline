@@ -6,9 +6,11 @@ This tutorial walks you through a complete genome-wide association study (GWAS) 
 ### Getting Started
 
 **1. Fork [this repository](https://github.com/The-Graduate-Life/Arabidopsis-GWAS-Pipeline)**
+
 Click the **Fork** button in the upper right corner of this page. After a few seconds you will have your own copy of the repository in your GitHub account.
 
 **2. Clone your fork**
+
 On your fork's page, click the green **Code** button and copy the URL. Then in your terminal:
 
 ```bash
