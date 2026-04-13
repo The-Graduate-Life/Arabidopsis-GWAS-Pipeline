@@ -110,4 +110,91 @@ Selected 100 accessions  →  data/subset/sample_ids.txt
   Phenotype output         : data/subset/phenotype_subset.csv
 ```
 
+### Step 0a — Select Accessions and Download Phenotype
+
+> *Skip this step if you are using the pre-built subset in `data/subset/`. Proceed to Step 0b.*
+
+This step downloads the phenotype data from AraPheno, selects a manageable number of accessions from the full 1001 Genomes VCF using a **geographically stratified random sample**, and writes a matching phenotype file. Population structure across Eurasia is preserved by binning accessions into latitude/longitude grid cells before sampling.
+
+**Script:** `scripts/00_subset_data.sh`
+
+**Usage:**
+```bash
+bash scripts/00_subset_data.sh [n_accessions] [study_id]
+```
+
+**Arguments:**
+
+| Argument | Description | Default |
+|-|-|-|
+| `n_accessions` | Number of accessions to sample | `150` |
+| `study_id` | AraPheno study ID to download | `12` |
+
+**Example run:**
+```bash
+bash scripts/00_subset_data.sh 100 12
+```
+
+**What it does:**
+1. Downloads the phenotype CSV from AraPheno (`study 12` = FT16 + FT10)
+2. Reads all sample IDs from the VCF header
+3. Joins with the phenotype file to find overlapping accessions
+4. Performs a geographically stratified random sample (bins by latitude/longitude)
+5. Writes `sample_ids.txt` and `phenotype_subset.csv`
+
+**Outputs:**
+
+| File | Description |
+|-|-|
+| `data/raw/phenotype_raw.csv` | Raw phenotype file downloaded from AraPheno |
+| `data/subset/sample_ids.txt` | Selected accession IDs, one per line |
+| `data/subset/phenotype_subset.csv` | Phenotype file for selected accessions |
+
+---
+---
+### Step 0b — Subset the VCF
+
+> *Skip this step if `data/subset/subset.vcf.gz` already exists. Proceed to Step 1.*
+
+This step extracts the selected accessions from the full 1001 Genomes VCF using `bcftools`. It is separated from Step 0a because it is **memory intensive** and can be submitted as a batch job on HPC systems.
+
+**Script:** `scripts/00b_subset_vcf.sh`
+
+**Usage:**
+```bash
+bash scripts/00b_subset_vcf.sh       # local machine
+qsub scripts/00b_subset_vcf.sh       # HPC (PBS)
+```
+
+**What it does:**
+1. Reads `data/subset/sample_ids.txt` produced by Step 0a
+2. Calls `bcftools view --samples-file` to extract chosen accessions
+3. Drops SNPs that become monomorphic after subsetting (`--min-ac 1:minor`)
+4. bgzips and indexes the output VCF
+
+**Outputs:**
+
+| File | Description |
+|-|-|
+| `data/subset/subset.vcf.gz` | Subsetted, bgzipped VCF |
+| `data/subset/subset.vcf.gz.csi` | CSI index |
+
+**Expected terminal output:**
+```
+Subsetting VCF to 100 accessions...
+  Input  : data/raw/1001genomes_snp-short-indel_only_ACGTN.vcf.gz
+  Samples: data/subset/sample_ids.txt
+  Output : data/subset/subset.vcf.gz
+
+=============================================
+ Summary
+=============================================
+  Samples : 100
+  SNPs    : 4679817
+  Output  : data/subset/subset.vcf.gz
+
+✓ Done. Run the pipeline with:
+  bash scripts/run_pipeline.sh
+  qsub scripts/run_pipeline.sh
+```
 ---
