@@ -5,8 +5,6 @@
 
 ---
 
----
-
 ## Table of Contents
 
 - [1. Background](#1-background)
