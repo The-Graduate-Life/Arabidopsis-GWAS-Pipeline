@@ -417,3 +417,77 @@ Running PCA and kinship estimation...
 ✓ PCA & kinship complete → results/pca
 ```
 ---
+
+### Step 5 — Run GWAS
+
+This step runs the GWAS using the **FarmCPU** model in **GAPIT3**. FarmCPU uses the PCA scores as fixed-effect covariates and the kinship matrix as a random-effect covariance to control for population structure and relatedness simultaneously.
+
+**Script:** `scripts/05_gwas.sh` (calls `scripts/05_gwas.R`)
+
+**Usage:**
+
+```bash
+bash scripts/05_gwas.sh <phenotype> <geno> <outdir>
+```
+
+**Arguments:**
+
+|Argument|Description|Example|
+|-|-|-|
+|`phenotype`|Phenotype CSV with a `Taxa` column|`data/subset/phenotype_subset.csv`|
+|`geno`|QC-filtered PLINK prefix|`data/plink/qc`|
+|`outdir`|Output directory for GWAS results|`results/gwas`|
+
+**Example run:**
+
+```bash
+bash scripts/05_gwas.sh \
+    data/subset/phenotype_subset.csv \
+    data/plink/qc \
+    results/gwas
+```
+
+**Phenotype file format:**
+
+The phenotype file must have a `Taxa` column whose values match the sample IDs in the PLINK `.fam` file. Additional columns are the trait values. Missing values (`NA`) are allowed.
+
+```
+Taxa,FT16,FT10
+9564,,122.25
+9568,109.5,103.75
+9820,55.75,61.75
+```
+
+**Outputs:**
+
+|File|Description|
+|-|-|
+|`results/gwas/GAPIT.FarmCPU.csv`|Full association results (one row per SNP)|
+|`results/gwas/GAPIT.FarmCPU.*.pdf`|Manhattan and QQ plots from GAPIT3 (built-in)|
+
+**The output CSV columns:**
+
+|Column|Description|
+|-|-|
+|`SNP`|Variant ID (`CHR:POS`)|
+|`Chr`|Chromosome|
+|`Pos`|Base-pair position|
+|`P.value`|Association p-value|
+|`effect`|Estimated allelic effect|
+|`se`|Standard error of the effect|
+|`R2`|Proportion of phenotypic variance explained|
+|`FDR_Adjusted_P-values`|Benjamini–Hochberg FDR-corrected p-value|
+
+**Expected terminal output:**
+
+```
+Running GWAS (FarmCPU via GAPIT3)...
+  Phenotype : data/subset/phenotype_subset.csv
+  Genotype  : data/plink/qc
+  Output    : results/gwas
+
+✓ GWAS complete → results/gwas
+```
+
+> This step is computationally intensive and may take several minutes depending on the number of SNPs and accessions.
+---
