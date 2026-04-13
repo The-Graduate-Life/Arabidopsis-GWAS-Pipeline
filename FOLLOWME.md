@@ -648,6 +648,7 @@ If you use this pipeline in your work, please cite:
 
 > Pierre, F. (2026). *GWAS Analysis Pipeline for Arabidopsis thaliana Flowering Time Using Public Data*. GitHub. https://github.com/The-Graduate-Life/Arabidopsis-GWAS-Pipeline
 
+Please also cite the underlying tools (see [References](PROJECT_DETAILS.md#8-references)).
 
 ## AI Disclosure
 
