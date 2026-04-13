@@ -43,7 +43,7 @@ wget "https://arapheno.1001genomes.org/phenotype/6/values.csv" \
 
 ---
 
-### Step 0 — Subset the Data
+### Step 0: Subset the Data
 
 > *Skip this step if you are using the pre-built subset in `data/subset/`. Proceed to Step 1.
 
@@ -113,7 +113,7 @@ Selected 100 accessions  →  data/subset/sample_ids.txt
   Phenotype output         : data/subset/phenotype_subset.csv
 ```
 
-### Step 0b — Select Accessions and Download Phenotype
+### Step 0b: Select Accessions and Download Phenotype
 
 > *Skip this step if you are using the pre-built subset in `data/subset/`. Proceed to Step 0b.*
 
@@ -155,7 +155,7 @@ bash scripts/00_subset_data.sh 100 12
 
 ---
 ---
-### Step 0b — Subset the VCF
+### Step 0b: Subset the VCF
 
 > *Skip this step if `data/subset/subset.vcf.gz` already exists. Proceed to Step 1.*
 
@@ -202,7 +202,7 @@ Subsetting VCF to 100 accessions...
 ```
 ---
 
-### Step 1 — Filter the VCF
+### Step 1: Filter the VCF
 
 This step applies the first layer of variant-level quality control directly on the VCF before converting to PLINK format.
 
@@ -255,7 +255,7 @@ Filtering VCF...
 ```
 ---
 
-### Step 2 — Convert VCF to PLINK
+### Step 2: Convert VCF to PLINK
 
 PLINK's binary format (`.bed`/`.bim`/`.fam`) is required by PLINK's QC tools and is also readable by the SNPRelate and GAPIT3 R packages.
 
@@ -309,7 +309,7 @@ Converting VCF to PLINK...
 ```
 ---
 
-### Step 3 — Quality Control
+### Step 3: Quality Control
 
 This step applies standard GWAS QC thresholds to remove low-quality variants and samples.
 
@@ -365,7 +365,7 @@ Running QC...
 ```
 ---
 
-### Step 4 — PCA & Kinship
+### Step 4: PCA & Kinship
 
 This step uses the **SNPRelate** R package to compute:
 
@@ -421,7 +421,7 @@ Running PCA and kinship estimation...
 ```
 ---
 
-### Step 5 — Run GWAS
+### Step 5: Run GWAS
 
 This step runs the GWAS using the **FarmCPU** model in **GAPIT3**. FarmCPU uses the PCA scores as fixed-effect covariates and the kinship matrix as a random-effect covariance to control for population structure and relatedness simultaneously.
 
@@ -495,7 +495,7 @@ Running GWAS (FarmCPU via GAPIT3)...
 > This step is computationally intensive and may take several minutes depending on the number of SNPs and accessions.
 ---
 
-### Step 6 — Plot Results
+### Step 6: Plot Results
 
 This step generates a **Manhattan plot** and a **QQ plot** from the GWAS results using the **qqman** R package.
 
@@ -539,7 +539,7 @@ Generating plots...
 ```
 ---
 
-## 7\. Running the Full Pipeline at Once
+## Step 7: Running the Full Pipeline at Once
 
 If you already have the subsetted data in `data/subset/` (either from Step 0 or the pre-built subset), you can run the entire pipeline with a single command:
 
@@ -576,7 +576,7 @@ readonly OUTDIR_GWAS="results/gwas"
 ```
 ---
 
-## 8. Interpreting the Results
+## Step 8: Interpreting the Results
 
 ### Manhattan Plot
 
@@ -611,7 +611,7 @@ The QQ plot compares the distribution of observed p-values (y-axis) to what woul
 
 ---
 
-## 9\. Troubleshooting
+## Step 9: Troubleshooting
 
 **`ERROR: Subset VCF not found`**
 Make sure you have run Step 0 or that `data/subset/subset.vcf.gz` exists. The pre-built subset is included in the repository.
