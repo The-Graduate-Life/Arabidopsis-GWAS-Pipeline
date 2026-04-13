@@ -34,3 +34,37 @@ A **genome-wide association study (GWAS)** tests hundreds of thousands to millio
 > *Note on Hardy-Wenberg Equilibrium (HWE) filtering: *A. thaliana* reproduces almost exclusively by self-fertilization, meaning the vast majority of loci deviate strongly from Hardy–Weinberg equilibrium by design. The QC script disables HWE filtering for this reason.*
 
 ---
+
+## 2. Pipeline Overview
+
+```
+Raw VCF + Phenotype CSV
+        │
+        ▼
+   [00] Subset phenotype data          ← stratified random sample of ~100 accessions
+        │
+        ▼
+   [00b] Subset VCF data               ← stratified random sample of ~100 accessions
+        │
+        ▼
+   [01] Filter VCF                     ← biallelic SNPs only, < 10% missingness
+        │
+        ▼
+   [02] VCF → PLINK                    ← .bed / .bim / .fam binary format
+        │
+        ▼
+   [03] QC (PLINK)                     ← MAF ≥ 5%, SNP/sample missingness < 10%
+        │
+        ▼
+   [04] PCA & Kinship (R)              ← SNPRelate: population structure + relatedness
+        │
+        ▼
+   [05] GWAS (R / GAPIT3)               ← FarmCPU model, p-values per SNP
+        │
+        ▼
+   [06] Plot results (R)                ← Manhattan plot + QQ plot
+```
+
+Each numbered step is a standalone shell script. A master script (`run_pipeline.sh`) chains STEPS 01-06 together.
+
+\---
