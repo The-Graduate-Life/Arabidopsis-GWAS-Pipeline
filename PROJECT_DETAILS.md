@@ -105,7 +105,7 @@ Arabidopsis-GWAS-Pipeline/
 │   └── run_pipeline.sh
 └── PROJECT_DETAILS.md
 ├── README.md
-└── TUTORIAL.md
+└── FOLLOWME.md
 ```
 ---
 ## 4. Prerequisites
