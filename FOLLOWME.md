@@ -198,3 +198,56 @@ Subsetting VCF to 100 accessions...
   qsub scripts/run_pipeline.sh
 ```
 ---
+
+### Step 1 — Filter the VCF
+
+This step applies the first layer of variant-level quality control directly on the VCF before converting to PLINK format.
+
+**Script:** `scripts/01_filter_vcf.sh`
+
+**Usage:**
+
+```bash
+bash scripts/01_filter_vcf.sh <vcf> <out>
+```
+
+**Arguments:**
+
+|Argument|Description|Example|
+|-|-|-|
+|`vcf`|Input subsetted VCF|`data/subset/subset.vcf.gz`|
+|`out`|Output filtered VCF path|`data/subset/filtered.vcf.gz`|
+
+**Example run:**
+
+```bash
+bash scripts/01_filter_vcf.sh \
+    data/subset/subset.vcf.gz \
+    data/subset/filtered.vcf.gz
+```
+
+**Filters applied:**
+
+|Filter|Flag|Rationale|
+|-|-|-|
+|Biallelic SNPs only|`-m2 -M2 -v snps`|Multiallelic sites and indels complicate downstream analysis|
+|Missingness < 10%|`-i 'F_MISSING<0.1'`|Variants missing in > 10% of samples have low reliability|
+
+**Outputs:**
+
+|File|Description|
+|-|-|
+|`data/subset/filtered.vcf.gz`|Filtered, bgzipped VCF|
+|`data/subset/filtered.vcf.gz.tbi`|Tabix index|
+
+**Expected terminal output:**
+
+```
+Filtering VCF...
+  Input  : data/subset/subset.vcf.gz
+  Output : data/subset/filtered.vcf.gz
+  Filters: biallelic SNPs only, missingness < 10%
+
+✓ VCF filtered → <N> SNPs retained: data/subset/filtered.vcf.gz
+```
+---
