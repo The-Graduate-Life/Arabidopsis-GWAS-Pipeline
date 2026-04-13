@@ -133,7 +133,7 @@ By completing this project, I will learn:
 
 ## 10. Step-by-step tutorial
 
-To make it easily reproducible, a beginner friendly step-by-step tutorial is avalable as [FOLLOWME](FOLLOWME.md).
+To make it easily reproducible, a beginner-friendly step-by-step tutorial is avalable as [FOLLOWME](FOLLOWME.md).
 
 ---
 
