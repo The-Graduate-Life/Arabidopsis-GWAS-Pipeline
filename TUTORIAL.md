@@ -111,3 +111,45 @@ Arabidopsis-GWAS-Pipeline/
 └── README.md
 └── TUTORIAL.md
 ```
+---
+## 4. Prerequisites
+
+### System tools
+
+|Tool|Version|Install|
+|-|-|-|
+|`bcftools`|≥ 1.15|conda install -c bioconda bcftools|
+|`tabix`|≥ 1.15|included with htslib|
+|`plink`|≥ 1.9|conda install -c bioconda plink|
+|`R`|≥ 4.0|conda install -c conda-forge r-base|
+|`conda`|any|[Miniconda installer](https://docs.conda.io/en/latest/miniconda.html)|
+
+### R packages
+
+Install these once inside an R session:
+
+```r
+# SNPRelate (Bioconductor)
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install("SNPRelate")
+
+# GAPIT3
+install.packages("devtools")
+devtools::install_github("jiabowang/GAPIT3", force = TRUE)
+
+# qqman
+install.packages("qqman")
+```
+
+### Python packages (for Step 0 only)
+
+```bash
+conda create -n gwas_env -c conda-forge pandas numpy -y
+```
+
+> The subsetting script activates `gwas_env` automatically. All other steps use only shell tools and R.
+
+
+
+
