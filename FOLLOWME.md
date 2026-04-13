@@ -572,3 +572,39 @@ readonly OUTDIR_GWAS="results/gwas"
   Figures         : results/figures/Manhattan.png & QQ.png
 ```
 ---
+
+## 8. Interpreting the Results
+
+### Manhattan Plot
+
+The Manhattan plot shows `-log10(p-value)` for each SNP across the five Arabidopsis chromosomes. Each point is one SNP; the x-axis is chromosomal position and the y-axis is the strength of association.
+
+* **Horizontal dashed line** — genome-wide significance threshold (typically p < 5 × 10⁻⁸, or a Bonferroni-corrected threshold for the number of SNPs tested)
+* **Peaks** — clusters of significant SNPs suggest a genomic region harboring a causal variant
+* Well-known flowering-time loci in Arabidopsis include *FLC* (chromosome 5) and *FRI* (chromosome 4)
+
+<p align="center">
+  <img src="results/figures/Manhattan_FT10_Kansas_.png" alt="Manhattan Plot - FT10 Kansas" width="800">
+  <br>
+  <em>Figure 1. Manhattan plot for flowering time at 10°C (FT10) in Kansas accessions. 
+  The red dashed line indicates the genome-wide significance threshold (p < 5×10⁻⁸).</em>
+</p>
+      
+### QQ Plot
+
+The QQ plot compares the distribution of observed p-values (y-axis) to what would be expected under the null hypothesis of no association (x-axis). Both axes are on the `-log10` scale.
+
+* **Points along the diagonal** — indicates the model is well-calibrated; most SNPs show no association, as expected
+* **Deviation upward at the tail** — indicates true association signals rising above the null
+* **Early departure from the diagonal** — called **genomic inflation**, and indicates uncorrected population stratification or other systematic bias. A well-fitted model (with PCA and kinship correction) should show points tracking the diagonal until the true signal region.
+
+<p align="center">
+  <img src="results/figures/QQ_FT10_Kansas_.png" alt="QQ Plot - FT10 Kansas" width="500">
+  <br>
+  <em>Figure 2. QQ plot for flowering time at 10°C (FT10) in Kansas accessions. 
+  The red line represents the expected distribution under the null hypothesis. 
+  Deviation from the diagonal indicates true associations.</em>
+</p>
+---
+
+
