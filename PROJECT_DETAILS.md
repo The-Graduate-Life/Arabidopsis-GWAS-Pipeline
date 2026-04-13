@@ -14,7 +14,7 @@
 - [5. Data](#5-data)
 - [6. How to Cite](#6-how-to-cite)
 - [7. AI Disclosure](#7-ai-disclosure)
-- [8. References](8#-references)
+- [8. References](#8-references)
 
 ---
 
