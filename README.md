@@ -130,6 +130,11 @@ By completing this project, I will learn:
 - PLINK: Whole genome association analysis toolset. [https://www.cog-genomics.org/plink/](https://www.cog-genomics.org/plink/)  
 - qqman: R package for Manhattan and QQ plots. [https://cran.r-project.org/web/packages/qqman/](https://cran.r-project.org/web/packages/qqman/)
 
+
+## 10. Step-by-step tutorial
+
+To make it easily reproducible, a beginner friendly step-by-step tutorial is avalable as [FALLOWME](FALLOWME.md).
+
 ---
 
 ## Feedback
