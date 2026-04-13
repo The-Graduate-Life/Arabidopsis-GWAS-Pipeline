@@ -210,3 +210,13 @@ accession_id,replicate_id,FT16,FT10
 For classroom use, a pre-built subset of **100 accessions** is already in `data/subset/`. You can skip Step 0 and start directly at Step 1 if you want to use this subset.
 
 ---
+
+## 6. References
+
+* The 1001 Genomes Consortium. 1001 Genomes Project. [https://1001genomes.org/](https://1001genomes.org/)
+* AraPheno: A public database of Arabidopsis thaliana phenotypes. [https://arapheno.1001genomes.org/](https://arapheno.1001genomes.org/)
+* Wang, J. et al. (2018). GAPIT3: Boosting Power and Accuracy for Genomic Association and Prediction. *Genomics, Proteomics \& Bioinformatics*. [https://zzlab.net/GAPIT/](https://zzlab.net/GAPIT/)
+* Purcell, S. et al. (2007). PLINK: A Tool Set for Whole-Genome Association and Population-Based Linkage Analyses. *AJHG*. [https://www.cog-genomics.org/plink/](https://www.cog-genomics.org/plink/)
+* Danecek, P. et al. (2021). Twelve years of SAMtools and BCFtools. *GigaScience*. [http://www.htslib.org/](http://www.htslib.org/)
+* Zheng, X. et al. (2012). A high-performance computing toolset for relatedness and principal component analysis of SNP data. *Bioinformatics*. SNPRelate: [https://bioconductor.org/packages/SNPRelate/](https://bioconductor.org/packages/SNPRelate/)
+* Turner, S. D. (2014). qqman: an R package for visualizing GWAS results using Q-Q and manhattan plots. *bioRxiv*. [https://cran.r-project.org/web/packages/qqman/](https://cran.r-project.org/web/packages/qqman/)
