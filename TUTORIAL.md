@@ -119,7 +119,7 @@ Arabidopsis-GWAS-Pipeline/
 |Tool|Version|Install|
 |-|-|-|
 |`bcftools`|≥ 1.15|conda install -c bioconda bcftools|
-|`tabix`|≥ 1.15|included with htslib|
+|`tabix`|≥ 1.15|included with bcftools|
 |`plink`|≥ 1.9|conda install -c bioconda plink|
 |`R`|≥ 4.0|conda install -c conda-forge r-base|
 |`conda`|any|[Miniconda installer](https://docs.conda.io/en/latest/miniconda.html)|
