@@ -103,9 +103,9 @@ Arabidopsis-GWAS-Pipeline/
 │   ├── 06_plot_results.sh
 │   ├── 06_plot_results.R
 │   └── run_pipeline.sh
-└── PROJECT_DETAILS.md
-├── README.md
 └── FOLLOWME.md
+├── PROJECT_DETAILS.md
+└── README.md
 ```
 ---
 ## 4. Prerequisites
