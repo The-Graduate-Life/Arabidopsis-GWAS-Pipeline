@@ -19,6 +19,7 @@ cd Arabidopsis-GWAS-Pipeline
 ```
 
 **3. Verify**
+
 You should now be in your local copy of the repository:
 
 ```bash
@@ -27,7 +28,7 @@ ls scripts/
 
 You are ready to proceed with the setup. 
 
-**4. Download the raw data
+**4. Download the raw data**
 ```bash
 # Download the genotype VCF (~19 GB — this will take a while)
 wget https://1001genomes.org/data/GMI-MPI/releases/v3.1/1001genomes_snp-short-indel_only_ACGTN.vcf.gz \
