@@ -616,9 +616,11 @@ The QQ plot compares the distribution of observed p-values (y-axis) to what woul
 ## Step 9: Troubleshooting
 
 + **`ERROR: Subset VCF not found`**
+
 Make sure you have run Step 0 or that `data/subset/subset.vcf.gz` exists. The pre-built subset is included in the repository.
 
 + **`command not found: bcftools` / `plink` / `Rscript`**
+
 These tools must be on your `PATH`. Install them via conda and activate the environment before running the scripts:
 
 ```bash
@@ -626,6 +628,7 @@ conda activate gwas_env
 ```
 
 + **R package installation failures**
+
 GAPIT3 requires several Bioconductor dependencies. Install them first:
 
 ```r
@@ -638,6 +641,7 @@ devtools::install_github("jiabowang/GAPIT3", force = TRUE)
 
 
 + **`set -euo pipefail` causes the script to exit unexpectedly**
+
 Run the failing step manually with `bash -x scripts/<script>.sh ...` to see exactly which command failed and why.
 
 ---
