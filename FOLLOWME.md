@@ -582,7 +582,8 @@ readonly OUTDIR_GWAS="results/gwas"
 
 The Manhattan plot shows `-log10(p-value)` for each SNP across the five Arabidopsis chromosomes. Each point is one SNP; the x-axis is chromosomal position and the y-axis is the strength of association.
 
-* **Horizontal dashed line** — genome-wide significance threshold (typically p < 5 × 10⁻⁸, or a Bonferroni-corrected threshold for the number of SNPs tested)
+* **Horizontal red line** — genome-wide significance threshold (drawn at p < 5 × 10⁻⁸)
+* ***Horizontal blue line*** — Suggestive significance threshold (Drawn at −log₁₀(1×10⁻⁵))
 * **Peaks** — clusters of significant SNPs suggest a genomic region harboring a causal variant
 * Well-known flowering-time loci in Arabidopsis include *FLC* (chromosome 5) and *FRI* (chromosome 4)
 
